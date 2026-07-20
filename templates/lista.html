@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{{ titulo }}</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; padding: 20px; }
+        .item { border-bottom: 1px solid #ccc; padding: 8px 0; }
+        a { display: inline-block; margin-top: 20px; color: #0077b6; }
+    </style>
+</head>
+<body>
+    <h1>{{ titulo }}</h1>
+    {% if tipo == "dentista" %}
+        {% for d in itens %}
+            <div class="item"><strong>{{ d.nome }}</strong> – {{ d.especialidade }}</div>
+        {% endfor %}
+    {% else %}
+        {% for s in itens %}
+            <div class="item"><strong>{{ s.nome }}</strong> – {{ s.duracao }} minutos</div>
+        {% endfor %}
+    {% endif %}
+    <a href="/">Voltar</a>
+</body>
+</html>
