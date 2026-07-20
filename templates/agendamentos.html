@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Meus Agendamentos</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; padding: 20px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background: #f4f4f4; }
+        .status { font-weight: bold; }
+        .cancelado { color: red; }
+        .agendado { color: green; }
+        a { display: inline-block; margin-top: 20px; color: #0077b6; }
+        .btn-cancel { color: red; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+    <h1>📋 Agendamentos</h1>
+    {% if agendamentos %}
+        <table>
+            <tr>
+                <th>Cliente</th>
+                <th>Dentista</th>
+                <th>Serviço</th>
+                <th>Data/Hora</th>
+                <th>Status</th>
+                <th>Ações</th>
+            </tr>
+            {% for a in agendamentos %}
+            <tr>
+                <td>{{ a.cliente_nome }}</td>
+                <td>{{ a.dentista.nome }}</td>
+                <td>{{ a.servico.nome }}</td>
+                <td>{{ a.data_hora.strftime('%d/%m/%Y %H:%M') }}</td>
+                <td class="status {{ a.status }}">{{ a.status }}</td>
+                <td>
+                    {% if a.status == 'agendado' %}
+                        <a href="/cancelar/{{ a._id }}" class="btn-cancel" onclick="return confirm('Cancelar agendamento?')">Cancelar</a>
+                    {% else %}
+                        —
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>Nenhum agendamento encontrado.</p>
+    {% endif %}
+    <a href="/">Voltar</a>
+</body>
+</html>
