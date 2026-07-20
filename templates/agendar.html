@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Agendar Consulta</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 40px auto; padding: 20px; }
+        label { display: block; margin-top: 15px; font-weight: bold; }
+        input, select { width: 100%; padding: 8px; margin-top: 5px; border-radius: 6px; border: 1px solid #ccc; }
+        button { margin-top: 20px; padding: 10px 20px; background: #0077b6; color: white; border: none; border-radius: 6px; cursor: pointer; }
+        button:hover { background: #023e8a; }
+        a { display: inline-block; margin-top: 20px; color: #0077b6; }
+    </style>
+</head>
+<body>
+    <h1>📅 Agendar Consulta</h1>
+    <form method="POST">
+        <label>Nome completo *</label>
+        <input type="text" name="nome" required>
+
+        <label>Telefone *</label>
+        <input type="text" name="telefone" required>
+
+        <label>Email</label>
+        <input type="email" name="email">
+
+        <label>Dentista *</label>
+        <select name="dentista_id" required>
+            {% for d in dentistas %}
+                <option value="{{ d._id }}">{{ d.nome }} ({{ d.especialidade }})</option>
+            {% endfor %}
+        </select>
+
+        <label>Serviço *</label>
+        <select name="servico_id" required>
+            {% for s in servicos %}
+                <option value="{{ s._id }}">{{ s.nome }} – {{ s.duracao }} min</option>
+            {% endfor %}
+        </select>
+
+        <label>Data e Hora *</label>
+        <input type="datetime-local" name="data_hora" required>
+
+        <button type="submit">Agendar</button>
+    </form>
+    <a href="/">Voltar</a>
+</body>
+</html>
